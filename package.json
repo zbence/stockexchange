@@ -1,0 +1,28 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "package for stockexchange app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zbence/stockexchange.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zbence/stockexchange/issues"
+  },
+  "homepage": "https://github.com/zbence/stockexchange#readme",
+  "dependencies": {
+    "angular": "^1.6.9",
+    "angular-socket-io": "^0.7.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.15",
+    "node-schedule": "^1.3.0",
+    "socket.io": "^2.1.0"
+  }
+}

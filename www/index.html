@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="exchange">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.min.js"></script>
+<script src="js/exchangeController.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+<body>
+
+<h1>My First Heading</h1>
+
+<p>My first paragraph.</p>
+<div ng-controller="MainCtrl">
+<input type="text" ng-model="message" /></label>
+<button ng-click="$log.log(message)">log</button>
+</div>
+
+</body>
+</html>
