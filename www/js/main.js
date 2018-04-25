@@ -62,23 +62,29 @@ var j = schedule.scheduleJob("*/10 * * * * *",function(){
             stockPrice.find({stockId: doc[i]._id})
             .limit(1)
             .sort('timestamp').then(
-             
-                function(docPrice) {
+                  function(docPrice) {
+                    var newStockPrice;
+
                     if(!docPrice) {
                         var newPrice = docPrice.price + gauss(-10,15,1);
                         if(newPrice < 0) {
                             newPrice = docPrice.price;
                         }
             
-                        new stockPrice({stockId:docPrice.stockId,
+                        newStockPrice = new stockPrice({stockId:docPrice.stockId,
                         timestamp: new Date(),
-                        price: newPrice}).save()
+                        price: newPrice});
+                        newStockPrice.save()
                     }else {
-                        new stockPrice({stockId:doc[i]._id,
+                        newStockPrice = new stockPrice({stockId:doc[i]._id,
                             timestamp: new Date(),
                             price: gauss(0,15,1)
-                        }).save()
+                        })
+                        newStockPrice.save()
                     }
+
+                    io.emit("stockPriceUpdate",newStockPrice);
+                    
                 }
                )
         })(i)}
@@ -115,11 +121,40 @@ io.sockets.on('connection', function (socket) {
     if(err) {
         console.log(err)
     }
+    res.end();
 }))
 app.get("/js/*",(req,res) => res.sendFile('/app/www' +req.path,function(err) {
     if(err) {
         console.log(err)
     }
+    res.end();
 } ))
+app.get("/main.css",(req,res) => res.sendFile('/app/www' +req.path,function(err) {
+    if(err) {
+        console.log(err)
+    }
+    res.end();
+} ))
+
+app.get("/node_modules/*",(req,res) => res.sendFile('/app' +req.path,function(err) {
+    if(err) {
+        console.log(err)
+    }
+    res.end();
+} ))
+
+
+app.get("/api/stock/all",(req,res) => stock.find().then(function(stocks){
+    res.send(stocks);
+    res.end();
+
+}))
+
+app.get("/api/stock/price/:name/quantity/:many", (req,res) => stockPrice.find({stockId:req.params.name})
+  .limit(parseInt(req.params.many)).sort('timestamp').then(function(doc){
+    res.send(doc)
+    res.end();
+  } )
+)
 
 app.listen(8080, () => console.log('Example app listening on port 8080!'))
