@@ -36,6 +36,9 @@ exchange.controller('MainCtrl',["$scope","$log","$http",
 
         stock[data.stockId].push(data);
         console.log(stock[data.stockId].length)
+        if(data.stockId == $scope.selectedStockPrice) {
+          $scope.onStockChange();
+        }
       })
     })
 
@@ -65,7 +68,7 @@ exchange.controller('MainCtrl',["$scope","$log","$http",
 
        console.log("change event")
        $.each(stock[$scope.selectedStockPrice],function(index,element){
-         console.log(element)
+
         prices.push(element.price);
         timestamps.push(element.timestamp);
       })
@@ -77,7 +80,7 @@ exchange.controller('MainCtrl',["$scope","$log","$http",
        $scope.labels =timestamps;
        console.log("change event")
      
-       
+       $scope.$emit("$resize");
        
     }
     
@@ -91,21 +94,17 @@ exchange.controller('MainCtrl',["$scope","$log","$http",
   $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
     $scope.options = {
       scales: {
-        yAxes: [
-          {
-            id: 'y-axis-1',
-            type: 'linear',
-            display: true,
-            position: 'left'
-          },
-          {
-            id: 'y-axis-2',
-            type: 'linear',
-            display: true,
-            position: 'right'
-          }
-        ]
-      }
+        xAxes: [{
+            type: 'time',
+            time: {
+                displayFormats: {
+                    quarter: 'MMM YYYY'
+                },
+                
+            }
+        }],
+      },
+    
     };
 
 

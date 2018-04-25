@@ -150,11 +150,19 @@ app.get("/api/stock/all",(req,res) => stock.find().then(function(stocks){
 
 }))
 
-app.get("/api/stock/price/:name/quantity/:many", (req,res) => stockPrice.find({stockId:req.params.name})
-  .limit(parseInt(req.params.many)).sort('timestamp').then(function(doc){
-    res.send(doc)
-    res.end();
-  } )
+app.get("/api/stock/price/:name/quantity/:many", (req,res) =>
+stockPrice.count({stockId:req.params.name},function(err,count){
+    if(err){
+        console.log(err);
+        res.end();
+    }
+    stockPrice.find({stockId:req.params.name})
+    .skip(count  - parseInt(req.params.many)).sort('timestamp').then(function(doc){
+      res.send(doc)
+      res.end();
+    } )
+})
+
 )
 
 app.listen(8080, () => console.log('Example app listening on port 8080!'))
