@@ -53,13 +53,38 @@ exchange.controller('MainCtrl',["$scope","$log","$http",
     };
     
     
+    $scope.onStockChange = function (){
+      console.log("change event")
+       if(!$scope.selectedStockPrice){
+         console.log("selectedStockPrice is null");
+         return
+       }
+
+       var prices = [];
+       var timestamps  = [];
+
+       console.log("change event")
+       $.each(stock[$scope.selectedStockPrice],function(index,element){
+         console.log(element)
+        prices.push(element.price);
+        timestamps.push(element.timestamp);
+      })
+
+      
+       console.log(prices[0])
+       $scope.data =prices;
+       console.log("change event")
+       $scope.labels =timestamps;
+       console.log("change event")
+     
+       
+       
+    }
+    
     //Main chart preparation
-    $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-  $scope.series = ['Series A', 'Series B'];
-  $scope.data = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
-  ];
+    $scope.labels = ["ddfd"];
+  $scope.series = ["dfdf"];
+  $scope.data = [1,2];
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
@@ -84,6 +109,7 @@ exchange.controller('MainCtrl',["$scope","$log","$http",
     };
 
 
+   
 
    
   }]);

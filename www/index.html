@@ -23,8 +23,8 @@
 <div class="container">
     <div class="row">
             <div class="col-md-4"></div>
-<span class="badge  badge-primary col-md-1">Stock:  </span>
-<select class="col-md-1 form-control" ng-model="selectedStockPrice" ng-options="x for x in stockIds">
+<span class="badge  badge-primary col-md-1">Stock:  </span>                    
+<select class="col-md-1 form-control" ng-model="selectedStockPrice" ng-change="onStockChange()" ng-options="x for x in stockIds">
     </select>
 </div>
 
