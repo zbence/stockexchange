@@ -1,3 +1,27 @@
-#mainCanvas {
-    width: 35%;
+#stockSelectorRow {
+    margin-top: 35px;
+}
+
+
+#controller:hover #ticker {
+    -webkit-animation-play-state: paused;
+}
+#priceList {
+    white-space: nowrap;
+    -webkit-animation: move_eye 6s linear 0s infinite normal;
+}
+@-webkit-keyframes move_eye {
+    from {
+        -webkit-transform: translate(-100%,0)
+    }
+    90% {
+    }
+}
+
+.backgroundcolor-red {
+    background-color: red;
+}
+
+.backgroundcolor-green {
+    background-color: palegreen;
 }
